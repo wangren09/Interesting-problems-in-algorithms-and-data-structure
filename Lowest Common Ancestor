@@ -1,0 +1,50 @@
+#Q: Given the root and two nodes in a Binary Tree. Find the lowest common ancestor(LCA) of the two nodes.
+#The lowest common ancestor is the node with largest depth which is the ancestor of both nodes.
+#Return null if LCA does not exist.
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+
+class Solution:
+    """
+    @param: root: The root of the binary tree.
+    @param: A: A TreeNode
+    @param: B: A TreeNode
+    @return: Return the LCA of the two nodes.
+    """
+    def __init__(self):
+        self.Aexist = False
+        self.Bexist = False
+    
+    def lowestCommonAncestor(self, root, A, B):
+        res = self.helper(root, A, B)
+        if self.Aexist and self.Bexist and res:
+            return res
+        return None
+    def helper(self, root, A, B):
+        if root is None:
+            return None
+        left = self.helper(root.left, A, B)
+        right = self.helper(root.right, A, B)
+        if root == A and root == B:
+            self.Aexist = True
+            self.Bexist = True
+            return root
+        if root == A:
+            self.Aexist = True
+            return root
+        if root == B:
+            self.Bexist = True
+            return root
+        if left and right:
+            return root
+        if left:
+            return left
+        if right:
+            return right
+            
