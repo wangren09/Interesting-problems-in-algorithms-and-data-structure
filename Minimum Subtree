@@ -1,0 +1,9 @@
+#Q: Given a binary tree, find the subtree with minimum sum
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution(object):
+  def findSubtree(self, root):
