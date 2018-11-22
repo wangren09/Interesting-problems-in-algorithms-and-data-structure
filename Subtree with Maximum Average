@@ -1,0 +1,37 @@
+#Q: Given a binary tree, find the subtree with the maximum sum average
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def findSubtree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        self.average = -sys.maxsize
+        self.node = root
+        self.helper(root)
+        return self.node
+    def helper(self, root):
+        if root is None:
+            return 0, 0
+        leftsum, leftsize = self.helper(root.left)
+        rightsum, rightsize = self.helper(root.right)
+        if leftsum / leftsize > self.average:
+            self.average = leftsum / leftsize
+            self.node = root.left
+        if rightsum / rightsize > self.average:
+            self.average = rightsum / rightsize
+            self.node = root.right
+        sums = leftsum + rightsum + root.val
+        size = leftsize + rightsize + 1
+        if self.node is None or sums / size > self.average:
+            self.average = sums / size
+            self.node = root        
+        return sums, size
+        
