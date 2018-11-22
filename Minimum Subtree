@@ -7,3 +7,20 @@
 #         self.right = None
 class Solution(object):
   def findSubtree(self, root):
+    """
+    :type root: TreeNode
+    :rtype: TreeNode
+    """
+    self.minimum = sys.maxsize
+    self.result = None
+    self.helper(root)
+    return self.result
+  def helper(self, root):
+    if root is None:
+      return 0
+    left_min = self.helper(root.left)
+    right_min = self.helper(root.right)
+    if root.val + left_min + right_min < self.minimum:
+      self.minimum = root.val + left_min + right_min
+      self.result = root
+    return root.val + left_min + right_min
