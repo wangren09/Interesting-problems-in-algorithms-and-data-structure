@@ -1,0 +1,31 @@
+#Q: Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        self.helper(root, result, [], sum)
+        return result
+    def helper(self, root, result, comb, target):
+        if root is None:
+            return
+        target = target - root.val
+        comb.append(root.val)
+        if target == 0 and not root.left and not root.right:
+            result.append(list(comb))
+            comb.pop()
+            return
+        self.helper(root.left, result, comb, target)
+        self.helper(root.right, result, comb, target)
+        comb.pop()
