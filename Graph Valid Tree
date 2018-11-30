@@ -1,0 +1,29 @@
+#Q: Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes),
+#write a function to check whether these edges make up a valid tree.
+
+class Solution:
+    """
+    @param n: An integer
+    @param edges: a list of undirected edges
+    @return: true if it's a valid tree, or false
+    """
+    def validTree(self, n, edges):
+        if len(edges) != n - 1:
+            return False
+        neib = collections.defaultdict(list)
+        for i, j in edges:
+            neib[i].append(j)
+            neib[j].append(i)
+        queue = collections.deque([0])
+        visit = {}
+        visit[0] = True
+        while queue:
+            node = queue.popleft()
+            visit[node] = True
+            for i in neib[node]:
+                if i in visit:
+                    continue
+                else:
+                    visit[i] = True
+                    queue.append(i)
+        return len(visit) == n
