@@ -1,0 +1,36 @@
+#Q:Given the head of a graph, return a deep copy (clone) of the graph. Each node in the graph contains a label (int) and 
+#a list (List[UndirectedGraphNode]) of its neighbors. There is an edge between the given node and each of the nodes in its neighbors.
+
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if node is None:
+            return node
+        root = node
+        nodes = self.findnode(node)
+        mapping = {}
+        for node in nodes:
+            mapping[node] = UndirectedGraphNode(node.label)
+        for node in nodes:
+            node_new = mapping[node]
+            for neighbor in node.neighbors:
+                neighbor_new = mapping[neighbor]
+                node_new.neighbors.append(neighbor_new)
+        return mapping[root]
+    def findnode(self, node):
+        queue = collections.deque([node])
+        result = set([node])
+        while queue:
+            node = queue.popleft()
+            for neighbor in node.neighbors:
+                if neighbor not in result:
+                    result.add(neighbor)
+                    queue.append(neighbor)
+        return result
