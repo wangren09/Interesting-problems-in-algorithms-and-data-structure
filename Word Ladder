@@ -1,0 +1,45 @@
+# Q:Given two words (beginWord and endWord), and a dictionary's word list, 
+#find the length of shortest transformation sequence from beginWord to endWord, such that:
+
+#Only one letter can be changed at a time.
+#Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+#Note:
+
+#Return 0 if there is no such transformation sequence.
+#All words have the same length.
+#All words contain only lowercase alphabetic characters.
+#You may assume no duplicates in the word list.
+#You may assume beginWord and endWord are non-empty and are not the same.
+
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
+        count = 0
+        visited = set([beginWord])
+        queue = collections.deque([beginWord])
+        while queue:
+            count += 1
+            for i in range(len(queue)):
+                word = queue.popleft()
+                if word == endWord:
+                    return count
+                for newword in self.findword(word):
+                    if newword not in wordList or newword in visited:
+                        continue
+                    queue.append(newword)
+                    visited.add(newword)
+        return 0
+    def findword(self, word):
+        wordset = []
+        for i in range(len(word)):
+            for j in 'abcdefghijklmnopqrstuvwxyz':
+                wordset.append(word[:i] + j + word[i+1:])
+        return wordset
