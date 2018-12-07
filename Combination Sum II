@@ -1,0 +1,30 @@
+#Q: Given a collection of candidate numbers (candidates) and a target number (target), 
+# find all unique combinations in candidates where the candidate numbers sums to target.
+
+# Each number in candidates may only be used once in the combination.
+
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        iF candidates is None；
+            return None
+        result = []
+        comb = []
+        candidates.sort()
+        self.helper(target, 0, candidates, result, comb)
+        return result
+    def helper(self, target, startindex, nums, result, comb):
+        if target == 0:
+            result.append(list(comb))
+        for i in range(startindex, len(nums)):
+            if i != startindex and nums[i] == nums[i-1]:
+                continue
+            if target < nums[i]:
+                break
+            comb.append(nums[i])
+            self.helper(target - nums[i], startindex + 1, nums, result, comb)
+            comb.pop()
