@@ -1,0 +1,15 @@
+#Q: given an array, return k sum of this array
+
+def windowSum(self, nums, k):
+    if len(nums) == 0:
+        return []
+    if len(nums) <= k:
+        return [sum(nums)]
+    result = []
+    sums = sum(nums[0:k])
+    result.append(sums)
+    for i in range(k, len(nums)):
+        sums += nums[i]
+        sumk += nums[i-k]
+        result.append(sums - sumk)
+    return result
