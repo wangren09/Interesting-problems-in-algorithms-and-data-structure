@@ -1,0 +1,30 @@
+#Q: Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), 
+#find all unique combinations in candidates where the candidate numbers sums to target.
+
+#The same repeated number may be chosen from candidates unlimited number of times.
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        if candidates is None:
+            return None
+        #nums = self.DelDuplicate(candidates)
+        nums = sorted(list(set(candidates)))
+        results = []
+        combinations = []
+        self.helper(nums, 0, combinations, target, results)
+        return results
+        
+    def helper(self, nums, startindex, combinations, target, results):
+        if target == 0:
+            result.append(list(combinations))
+        for i in range(startindex, len(nums)):
+            if target < nums[i]:
+                break
+            combinations.append(nums[i])
+            self.helper(nums, startindex+1, combinations, target - nums[i], results)
+            combinations.pop(0)
