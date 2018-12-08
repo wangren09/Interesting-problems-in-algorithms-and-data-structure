@@ -1,0 +1,37 @@
+#Q: Given a string s, partition s such that every substring of the partition is a palindrome.
+
+#Return all possible palindrome partitioning of s.
+
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        if not s:
+            return None
+        result = []
+        self.separation(0, [], result, s)
+        return result
+    def separation(self, startindex, palin, result, s):
+        if startindex == len(s):
+            result.append(list(palin))
+            return
+        for i in range(startindex, len(s)):
+            if not self.isvalid(s[startindex:i+1]):
+                continue
+            palin.append(s[startindex:i+1])
+            self.separation(i+1, palin, result, s)
+            palin.pop()
+    def isvalid(self, subs):
+        if not subs:
+            return True
+        left = 0
+        right = len(subs) - 1
+        
+        while left <= right:
+            if subs[left] != subs[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
