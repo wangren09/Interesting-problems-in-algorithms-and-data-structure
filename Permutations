@@ -1,0 +1,24 @@
+#Q: Given a collection of distinct integers, return all possible permutations.
+
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if nums is None:
+            return []
+        if nums == []:
+            return []
+        nums.sort()
+        result = []
+        self.perm(result, [], nums)
+        return result
+    def perm(self, result, case, nums):
+        if num == []:
+            result.append(list(case))
+            return
+        for i in range(nums):
+            case.append(nums[i])
+            self.perm(result, case, nums[:i]+nums[i+1:])
+            case.pop()
