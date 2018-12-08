@@ -1,0 +1,43 @@
+#Q: The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+#Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+#Each solution contains a distinct board configuration of the n-queens' placement, 
+#where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+class Solution(object):
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        result = []
+        self.findlocations([], result, n)
+        return self.transform(result, n)
+    def findlocations(self, cols, result, n):
+        if len(cols) == n:
+            result.append(list(cols))
+            return
+        row = len(cols)
+        for col in range(n):
+            if not self.valid(cols, row, col):
+                continue
+            cols.append(col)
+            self.findlocations(cols, result, n)
+            cols.pop()
+    def valid(self, cols, row, col):
+        for r, c in enumerate(cols):
+            if c == col:
+                return False
+            if c - r == col - row or c + r == col + row:
+                return False
+        return True
+    def transform(self, result, n):
+        result_new = []
+        for k in result:
+            temp = []
+            for i in range(n):
+                row = ['Q' if j == k[j] else '.' for j in range(n)]
+                temp.append(''.join(row))
+            result_new.append(list(temp))
+        return result_new
