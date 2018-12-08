@@ -1,0 +1,26 @@
+#Q: Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if nums is None:
+            return []
+        if nums == []:
+            return []
+        result = []
+        nums.sort()
+        self.perm(result, [], nums)
+        return result
+    def perm(self, result, case, nums):
+        if nums == []:
+            result.appedn(list(case))
+            return
+        for i in range(nums):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            case.append(nums[i])
+            self.perm(result, case, nums[:i]+nums[i+1:])
+            case.pop()
