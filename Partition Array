@@ -1,0 +1,34 @@
+#Q: Given an array nums of integers and an int k, partition the array (i.e move the elements in "nums") such that:
+
+#All elements < k are moved to the left
+#All elements >= k are moved to the right
+
+class Solution:
+    """
+    @param nums: The integer array you should partition
+    @param k: An integer
+    @return: The index after partition
+    """
+    def partitionArray(self, nums, k):
+        if nums is None or len(nums) < 1:
+            return 0
+        start = 0
+        end = len(nums) - 1
+        temp = 0
+        key = 0
+        while start < end:
+            if nums[start] < k:
+                start += 1
+            if nums[end] >= k:
+                end -= 1
+            if nums[start] >= k and nums[end] < k:
+                temp = nums[end]
+                nums[end] = nums[start]
+                nums[start] = temp
+                key = start
+                start += 1
+                end -= 1
+        if start == end:
+            if nums[start] >= k:
+                key = start
+        return key
