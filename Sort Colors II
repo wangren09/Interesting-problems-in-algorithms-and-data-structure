@@ -1,0 +1,34 @@
+# Q: Given an array of n objects with k different colors (numbered from 1 to k), 
+#sort them so that objects of the same color are adjacent, with the colors in the order 1, 2, ... k.
+
+class Solution:
+    """
+    @param colors: A list of integer
+    @param k: An integer
+    @return: nothing
+    """
+    def sortColors2(self, colors, k):
+        if colors is None or len(colors) == 0:
+            return
+        left = 0
+        right = len(colors) - 1
+        self.rainbow(colors, 1, k, left, right)
+    def rainbow(self, colors, startnum, endnum, startind, endind):
+        if startnum == endnum or startind == endind:
+            return
+        midnum = (startnum + endnum)//2
+        left = startind
+        right = endind
+        while left <= right:
+            while colors[left] <= midnum and left <=right:
+                left += 1
+            while colors[right] > midnum and left <= right:
+                right -= 1
+            if colors[left] > midnum and colors[right] <= midnum and left <= right:
+                temp = colors[right]
+                colors[right] = colors[left]
+                colors[left] = temp
+                left += 1
+                right -= 1
+            self.rainbow(colors, startnum, midnum, startind, right)
+            self.rainbow(colors, midnum + 1, endnum, left, endind)
