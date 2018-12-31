@@ -1,0 +1,26 @@
+#Q: Given an integer array, heapify it into a min-heap array.
+
+#For a heap array A, A[0] is the root of heap, and for each A[i], A[i * 2 + 1] is the left child of A[i] and 
+#A[i * 2 + 2] is the right child of A[i].
+
+class Solution:
+    """
+    @param: A: Given an integer array
+    @return: nothing
+    """
+    def heapify(self, A):
+        length = len(A)
+        for i in range(length//2, 0, -1):
+            self.siftup(i, A)
+    def siftup(self, i, A):
+        l = 2*i + 1
+        r = 2*i + 2
+        n = len(A)
+        smallest = i
+        if A[l] < A[i] and l < n:
+            smallest = l
+        if A[r] < A[smallest] and r < n:
+            smallest = r
+        if i != smallest:
+            A[i], A[smallest] = A[smallest], A[i]
+            self.siftup(smallest, A)
