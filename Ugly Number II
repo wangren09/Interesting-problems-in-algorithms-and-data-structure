@@ -1,0 +1,22 @@
+#Q:Write a program to find the n-th ugly number.
+
+#Ugly numbers are positive numbers whose prime factors only include 2, 3, 5
+
+
+class Solution(object):
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        import heapq
+        uglybasis = [2, 3, 5]
+        heap = [1]
+        visited = set([1])
+        for i in range(n):
+            val = heapq.heappop(heap)
+            for j in uglybasis:
+                if val*j not in visited:
+                    heapq.heappush(heap, val*j)
+                    visited.add(val*j)
+        return val
