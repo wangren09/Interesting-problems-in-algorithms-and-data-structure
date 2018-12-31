@@ -1,0 +1,32 @@
+#Q:Implement a data structure, provide two interfaces:
+
+#add(number). Add a new number in the data structure.
+#topk(). Return the top k largest numbers in this data structure. k is given when we create the data structure.
+
+class Solution:
+    """
+    @param: k: An integer
+    """
+    def __init__(self, k):
+        # do intialization if necessary
+        self.k = k
+        self.heap = []
+        
+
+    """
+    @param: num: Number to be added
+    @return: nothing
+    """
+    def add(self, num):
+        import heapq
+        if len(self.heap) < self.k:
+            heapq.heappush(self.heap, num)
+        elif num > self.heap[0]:
+            heapq.heappop(self.heap)
+            heapq.heappush(num)
+            
+    """
+    @return: Top k element
+    """
+    def topk(self):
+        return sorted(self.heap, reverse = True)
