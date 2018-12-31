@@ -1,0 +1,35 @@
+#Q:The size of the hash table is not determinate at the very beginning. 
+#If the total size of keys is too large (e.g. size >= capacity / 10), we should double the size of the hash table and rehash every keys. 
+
+"""
+Definition of ListNode
+class ListNode(object):
+
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+class Solution:
+    """
+    @param hashTable: A list of The first node of linked list
+    @return: A list of The first node of linked list which have twice size
+    """
+    def rehashing(self, hashTable):
+        leninit = len(hashTable)
+        lenafter = 2*leninit
+        newhash = [None for i in range(lenafter)]
+        for i in range(leninit):
+            item = hashTable[i]
+            while item:
+                self.addnode(item.val, newhash)
+                item = item.next
+        return newhash
+    def addnode(self, value, newhash):
+        pos = value % len(newhash)
+        if newhash[pos] is None:
+            newhash[pos] = ListNode(item)
+        else:
+            node = newhash[pos]
+            while node:
+                node = node.next
+            node.next = ListNode(value)  
