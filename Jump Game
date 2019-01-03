@@ -1,0 +1,38 @@
+#Q:Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+#Each element in the array represents your maximum jump length at that position.
+
+#Determine if you are able to reach the last index.
+
+
+#O(n) solution
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        lastPos = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] + i >= lastPos:
+                lastPos = i
+        return lastPos == 0
+
+
+
+#O(n^2) solution
+
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        f = [False for i in range(len(nums))]
+        f[0] = True
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if f[j] == True and nums[j] + j >= i:
+                    f[i] = True
+                    break
+        return f[len(nums)-1]
