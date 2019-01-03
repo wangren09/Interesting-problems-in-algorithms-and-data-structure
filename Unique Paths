@@ -1,0 +1,22 @@
+#Q:A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+#The robot can only move either down or right at any point in time. 
+#The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+#How many possible unique paths are there?
+
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        grid = [[0 for col in range(n)] for row in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    grid[i][j] = 1
+                else:
+                    grid[i][j] = grid[i - 1][j] + grid[i][j - 1]
+        return grid[m-1][n-1]
