@@ -1,0 +1,21 @@
+#Q:Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+#Each element in the array represents your maximum jump length at that position.
+
+#Your goal is to reach the last index in the minimum number of jumps.
+
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        jumps = 0
+        pre_jump_max = 0
+        cur_jump_max = 0
+        for i in range(len(nums)-1):
+            cur_jump_max = max(cur_jump_max, i + nums[i])
+            if i == pre_jump_max:
+                jumps += 1
+                pre_jump_max = cur_jump_max
+        return jumps
