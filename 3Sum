@@ -22,7 +22,7 @@ class Solution(object):
             b = a + 1
             c = len(nums) - 1
             while b < c:
-                if nums[b] + nums[c] == 0 - value:
+                if nums[b] + nums[c] == 0 - val:
                     result.append([val, nums[b], nums[c]])
                     b += 1
                     c -= 1
