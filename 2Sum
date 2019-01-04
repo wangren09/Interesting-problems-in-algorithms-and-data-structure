@@ -13,5 +13,5 @@ class Solution(object):
         for i, val in enumerate(nums):
             if target - val in dic:
                 return [dic[target - val], i]
-            dic[val] = True
+            dic[val] = i
         return
